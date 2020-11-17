@@ -5,7 +5,7 @@ stack: jdk 11
 build: off
 
 install:
-  - java -jar ./artifacts/app-ibank.jar -P:profile=test &
+  - java -jar ./app-ibank-build-for-testers.jar &
 
 build_script:
   - ./gradlew test -Dselenide.headless=true --info
