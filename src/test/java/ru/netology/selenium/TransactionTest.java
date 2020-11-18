@@ -33,7 +33,7 @@ public class TransactionTest {
         CardsPage.newInstance().checkCardBalanceByPattern(user.getFirstCard().getPattern(), expectedResult);
     }
 
-    @Disabled("Issue")
+    @Disabled("https://github.com/Kernitskaya/aqa-homework-6/issues/1")
     @Test
     void testUnderLimitTransaction() {
         open(startUrl);
