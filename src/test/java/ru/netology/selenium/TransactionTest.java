@@ -1,7 +1,7 @@
 package ru.netology.selenium;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ru.netology.selenium.domain.User;
 import ru.netology.selenium.pages.AuthPage;
@@ -30,6 +30,27 @@ public class TransactionTest {
         AuthPage.newInstance().logIn(user)
                 .fillCodeAndConfirm(user.getVerificationCode()).openCardByCardPattern(user.getFirstCard().getPattern())
                 .fillAndTransact("500", user.getSecondCard().getNumber());
+        CardsPage.newInstance().checkCardBalanceByPattern(user.getFirstCard().getPattern(), expectedResult);
+    }
+
+    @Disabled("Issue")
+    @Test
+    void testUnderLimitTransaction() {
+        open(startUrl);
+        User user = UserGenerator.getUser();
+        AuthPage.newInstance().logIn(user)
+                .fillCodeAndConfirm(user.getVerificationCode()).openCardByCardPattern(user.getSecondCard().getPattern())
+                .fillAndTransact("10500", user.getFirstCard().getNumber());
+    }
+
+    @Test
+    void testTransactionFromSameCard() {
+        String expectedResult = "10000";
+        open(startUrl);
+        User user = UserGenerator.getUser();
+        AuthPage.newInstance().logIn(user)
+                .fillCodeAndConfirm(user.getVerificationCode()).openCardByCardPattern(user.getFirstCard().getPattern())
+                .fillAndTransact("500", user.getFirstCard().getNumber());
         CardsPage.newInstance().checkCardBalanceByPattern(user.getFirstCard().getPattern(), expectedResult);
     }
 }
