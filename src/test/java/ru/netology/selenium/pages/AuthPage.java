@@ -1,5 +1,7 @@
 package ru.netology.selenium.pages;
 
+import cucumber.api.java.ru.Пусть;
+
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.selenium.domain.User;
 
@@ -21,6 +23,13 @@ public class AuthPage {
         this.login.setValue(user.getName());
         this.password.setValue(user.getPassword());
         confirm.click();
-        return new VerificationPage();
+        return VerificationPage.newInstance();
+    }
+
+    public VerificationPage logIn(String login, String password) {
+        this.login.setValue(login);
+        this.password.setValue(password);
+        confirm.click();
+        return VerificationPage.newInstance();
     }
 }
