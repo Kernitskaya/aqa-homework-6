@@ -36,11 +36,10 @@ configurations {
     }
 }
 
-task cucumber() {
+test {
+    useJUnitPlatform()
+    systemProperty 'selenide.headless', System.getProperty('selenide.headless')
     dependsOn assemble, testClasses
-    doFirst {
-        System.setProperty('selenide.headless', "true")
-    }
     doLast {
         javaexec {
             main = "cucumber.api.cli.Main"
@@ -48,9 +47,4 @@ task cucumber() {
             args = ['--plugin', 'pretty', '--glue', 'ru.netology.selenium.steps', 'src/test/resources']
         }
     }
-}
-
-test {
-    useJUnitPlatform()
-    systemProperty 'selenide.headless', System.getProperty('selenide.headless')
 }

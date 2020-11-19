@@ -8,4 +8,4 @@ install:
   - java -jar ./artifacts/app-ibank-build-for-testers.jar &
 
 build_script:
-  - ./gradlew cucumber -Dselenide.headless=true
+  - ./gradlew test -Dselenide.headless=true
